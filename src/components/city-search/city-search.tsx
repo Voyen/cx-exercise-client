@@ -5,10 +5,22 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloudIcon from '@material-ui/icons/Cloud';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import useStyles from './styles';
+
+interface CityForm {
+  city: string;
+}
 
 const CitySearch: React.FC = (): JSX.Element => {
   const classes = useStyles();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { register, handleSubmit } = useForm<CityForm>();
+
+  const onSubmit = (data: CityForm): void => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -20,12 +32,12 @@ const CitySearch: React.FC = (): JSX.Element => {
           <Typography component="h1" variant="h5">
             Search for a city
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  inputRef={register}
                   variant="outlined"
-                  required
                   fullWidth
                   id="city"
                   label="City"
