@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es6: true,
   },
   extends: [
     "airbnb-typescript",
@@ -17,6 +17,7 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: "module",
+    project: './tsconfig.json',
   },
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
