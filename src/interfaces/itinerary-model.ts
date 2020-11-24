@@ -4,4 +4,5 @@ import CityWeatherEntry from './city-weather-entry';
 export default interface ItineraryModel {
   entries: CityWeatherEntry[];
   addEntry: Action<ItineraryModel, CityWeatherEntry>;
+  removeEntry: Action<ItineraryModel, number>;
 }

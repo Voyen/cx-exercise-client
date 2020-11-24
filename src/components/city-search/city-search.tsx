@@ -1,15 +1,16 @@
-import {
-  Avatar, Card, Container, Grid, Typography,
-} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import CloudIcon from '@material-ui/icons/Cloud';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStoreActions } from '../../hooks';
 import CityWeatherEntry from '../../interfaces/city-weather-entry';
 import WeatherResult from './result/weather-result';
-
 import useStyles from './styles';
 
 interface CityForm {
@@ -87,8 +88,7 @@ const CitySearch: React.FC = (): JSX.Element => {
       </Container>
       <Container maxWidth="sm">
         {
-          // eslint-disable-next-line no-nested-ternary
-          result
+          result && !fetching
             ? (
               <Card>
                 <Grid container spacing={0}>

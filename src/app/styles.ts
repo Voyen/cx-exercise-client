@@ -10,4 +10,9 @@ export default makeStyles(() => createStyles({
     fontSize: 'calc(10px + 2vmin)',
     color: 'white',
   },
+  itinerary: {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+  },
 }));

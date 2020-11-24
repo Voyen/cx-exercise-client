@@ -1,4 +1,5 @@
 import { action } from 'easy-peasy';
+import CityWeatherEntry from '../interfaces/city-weather-entry';
 import ItineraryModel from '../interfaces/itinerary-model';
 
 const ItineraryStore: ItineraryModel = {
@@ -119,6 +120,10 @@ const ItineraryStore: ItineraryModel = {
   ],
   addEntry: action((state, entry) => {
     state.entries.push(entry);
+  }),
+  removeEntry: action((state, entryId) => {
+    const index = state.entries.findIndex((entry) => entry.id === entryId);
+    state.entries.splice(index, 1);
   }),
 };
 
