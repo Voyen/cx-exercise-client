@@ -1,3 +1,4 @@
+import { action, Action } from 'easy-peasy';
 import CityWeatherModel from '../interfaces/city-weather-model';
 
 const CityWeatherStore: CityWeatherModel = {
@@ -9,53 +10,116 @@ const CityWeatherStore: CityWeatherModel = {
       country: 'AU',
       details: [
         {
-          temp: 15.8, description: 'few clouds', cloudiness: 24.0, timestamp: '2020-11-23 12:00:00',
+          temp: 17.2,
+          description: 'broken clouds',
+          cloudiness: 65.0,
+          timestamp: '2020-11-24 12:00:00',
+          epoch: 1606219200,
         },
         {
-          temp: 15.09, description: 'scattered clouds', cloudiness: 40.0, timestamp: '2020-11-23 15:00:00',
+          temp: 16.48,
+          description: 'clear sky',
+          cloudiness: 6.0,
+          timestamp: '2020-11-24 15:00:00',
+          epoch: 1606230000,
         },
         {
-          temp: 13.17, description: 'broken clouds', cloudiness: 51.0, timestamp: '2020-11-23 18:00:00',
+          temp: 16.62,
+          description: 'clear sky',
+          cloudiness: 3.0,
+          timestamp: '2020-11-24 18:00:00',
+          epoch: 1606240800,
         },
         {
-          temp: 16.68, description: 'broken clouds', cloudiness: 67.0, timestamp: '2020-11-24 12:00:00',
+          temp: 20.24,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-25 12:00:00',
+          epoch: 1606305600,
         },
         {
-          temp: 16.24, description: 'clear sky', cloudiness: 9.0, timestamp: '2020-11-24 15:00:00',
+          temp: 19.24,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-25 15:00:00',
+          epoch: 1606316400,
         },
         {
-          temp: 16.48, description: 'clear sky', cloudiness: 5.0, timestamp: '2020-11-24 18:00:00',
+          temp: 18.24,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-25 18:00:00',
+          epoch: 1606327200,
         },
         {
-          temp: 20.38, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-25 12:00:00',
+          temp: 21.38,
+          description: 'few clouds',
+          cloudiness: 15.0,
+          timestamp: '2020-11-26 12:00:00',
+          epoch: 1606392000,
         },
         {
-          temp: 18.9, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-25 15:00:00',
+          temp: 21.36,
+          description: 'few clouds',
+          cloudiness: 16.0,
+          timestamp: '2020-11-26 15:00:00',
+          epoch: 1606402800,
         },
         {
-          temp: 18.73, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-25 18:00:00',
+          temp: 22.72,
+          description: 'broken clouds',
+          cloudiness: 57.0,
+          timestamp: '2020-11-26 18:00:00',
+          epoch: 1606413600,
         },
         {
-          temp: 22.69, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-26 12:00:00',
+          temp: 29.14,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-27 12:00:00',
+          epoch: 1606478400,
         },
         {
-          temp: 23.2, description: 'broken clouds', cloudiness: 60.0, timestamp: '2020-11-26 15:00:00',
+          temp: 27.79,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-27 15:00:00',
+          epoch: 1606489200,
         },
         {
-          temp: 23.65, description: 'broken clouds', cloudiness: 66.0, timestamp: '2020-11-26 18:00:00',
+          temp: 28.81,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-27 18:00:00',
+          epoch: 1606500000,
         },
         {
-          temp: 26.83, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-27 12:00:00',
+          temp: 16.53,
+          description: 'scattered clouds',
+          cloudiness: 29.0,
+          timestamp: '2020-11-28 12:00:00',
+          epoch: 1606564800,
         },
         {
-          temp: 26.7, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-27 15:00:00',
+          temp: 15.25,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-28 15:00:00',
+          epoch: 1606575600,
         },
         {
-          temp: 26.78, description: 'clear sky', cloudiness: 0.0, timestamp: '2020-11-27 18:00:00',
+          temp: 14.35,
+          description: 'clear sky',
+          cloudiness: 0.0,
+          timestamp: '2020-11-28 18:00:00',
+          epoch: 1606586400,
         },
       ],
     },
   ],
+  addEntry: action((state, entry) => {
+    state.entries.push(entry);
+  }),
 };
 
 export default CityWeatherStore;

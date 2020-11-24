@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Box, CssBaseline, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import CitySearch from '../components/city-search';
 import { useStoreState } from '../hooks';

@@ -5,9 +5,10 @@ export default interface CityWeatherEntry {
   details: CityWeatherEntryDetails[];
 }
 
-interface CityWeatherEntryDetails {
+export interface CityWeatherEntryDetails {
   temp: number;
   description: string;
   cloudiness: number;
   timestamp: string;
+  epoch: number;
 }

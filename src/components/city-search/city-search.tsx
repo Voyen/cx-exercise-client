@@ -1,11 +1,13 @@
 import {
-  Avatar, Container, Grid, Typography,
+  Avatar, Card, Container, Grid, Typography,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloudIcon from '@material-ui/icons/Cloud';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useStoreActions } from '../../hooks';
+import WeatherResult from './result/weather-result';
 
 import useStyles from './styles';
 
@@ -15,11 +17,18 @@ interface CityForm {
 
 const CitySearch: React.FC = (): JSX.Element => {
   const classes = useStyles();
+  const addEntry = useStoreActions((state) => state.weather.addEntry);
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit } = useForm<CityForm>();
+  const [result, setResult] = useState();
 
   const onSubmit = (data: CityForm): void => {
-    console.log(data);
+    const url = `http://localhost:3000/search/${data.city}`;
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetch(url, { mode: 'cors' })
+      .then((d) => d.json())
+      .then((d) => setResult(d));
   };
 
   return (
@@ -56,6 +65,17 @@ const CitySearch: React.FC = (): JSX.Element => {
             </Button>
           </form>
         </div>
+      </Container>
+      <Container maxWidth="sm">
+        {
+          result
+            ? (
+              <Card>
+                <WeatherResult city={result} />
+              </Card>
+            )
+            : ''
+        }
       </Container>
     </>
 
