@@ -1,5 +1,5 @@
-import CityWeatherModel from './city-weather-model';
+import ItineraryModel from './itinerary-model';
 
 export default interface Store {
-  weather: CityWeatherModel;
+  itinerary: ItineraryModel;
 }

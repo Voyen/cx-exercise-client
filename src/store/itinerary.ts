@@ -1,7 +1,7 @@
-import { action, Action } from 'easy-peasy';
-import CityWeatherModel from '../interfaces/city-weather-model';
+import { action } from 'easy-peasy';
+import ItineraryModel from '../interfaces/itinerary-model';
 
-const CityWeatherStore: CityWeatherModel = {
+const ItineraryStore: ItineraryModel = {
   entries: [
     // static dummy entry for now...
     {
@@ -122,4 +122,4 @@ const CityWeatherStore: CityWeatherModel = {
   }),
 };
 
-export default CityWeatherStore;
+export default ItineraryStore;

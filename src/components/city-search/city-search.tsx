@@ -7,6 +7,7 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStoreActions } from '../../hooks';
+import CityWeatherEntry from '../../interfaces/city-weather-entry';
 import WeatherResult from './result/weather-result';
 
 import useStyles from './styles';
@@ -17,18 +18,36 @@ interface CityForm {
 
 const CitySearch: React.FC = (): JSX.Element => {
   const classes = useStyles();
-  const addEntry = useStoreActions((state) => state.weather.addEntry);
+  const addEntry = useStoreActions((state) => state.itinerary.addEntry);
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { register, handleSubmit } = useForm<CityForm>();
+  const { register, handleSubmit, reset } = useForm<CityForm>();
   const [result, setResult] = useState();
+  const [fetching, setFetching] = useState(false);
 
   const onSubmit = (data: CityForm): void => {
+    setFetching(true);
     const url = `http://localhost:3000/search/${data.city}`;
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetch(url, { mode: 'cors' })
       .then((d) => d.json())
-      .then((d) => setResult(d));
+      .then((d) => {
+        setFetching(false);
+        setResult(d);
+      });
+
+    reset();
+  };
+
+  const onDiscard = (): void => {
+    setResult(undefined);
+    reset();
+  };
+
+  const addToItinerary = (data: CityWeatherEntry): void => {
+    addEntry(data);
+    setResult(undefined);
+    reset();
   };
 
   return (
@@ -68,13 +87,26 @@ const CitySearch: React.FC = (): JSX.Element => {
       </Container>
       <Container maxWidth="sm">
         {
+          // eslint-disable-next-line no-nested-ternary
           result
             ? (
               <Card>
-                <WeatherResult city={result} />
+                <Grid container spacing={0}>
+                  <Grid item xs={12}>
+                    <WeatherResult city={result} />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button fullWidth variant="contained" color="secondary" onClick={() => addToItinerary(result!)}>Add to itinerary</Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button fullWidth variant="contained" onClick={() => onDiscard()}>Discard</Button>
+                  </Grid>
+                </Grid>
               </Card>
             )
-            : ''
+            : fetching
+              ? <div className={classes.loader} />
+              : ''
         }
       </Container>
     </>

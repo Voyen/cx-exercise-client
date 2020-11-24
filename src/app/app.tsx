@@ -7,7 +7,7 @@ import theme from './theme';
 
 const App: React.FC = (): JSX.Element => {
   const classes = useStyles();
-  const weatherEntries = useStoreState((state) => state.weather.entries);
+  const weatherEntries = useStoreState((state) => state.itinerary.entries);
 
   return (
     <>

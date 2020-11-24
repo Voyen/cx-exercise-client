@@ -1,13 +1,13 @@
 import { createStore } from 'easy-peasy';
 
 import Store from '../interfaces/store';
-import CityWeatherStore from './city-weather';
+import ItineraryStore from './itinerary';
 
 /**
  * Global store
  */
 const store: Store = {
-  weather: CityWeatherStore,
+  itinerary: ItineraryStore,
 };
 
 export default createStore<Store>(store);
