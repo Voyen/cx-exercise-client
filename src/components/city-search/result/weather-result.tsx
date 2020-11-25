@@ -125,13 +125,17 @@ const WeatherResult: React.FC<IWeatherResult> = ({ city }): JSX.Element => {
     );
   };
 
+  const displayCacheAge = (date: number): number => (
+    new Date().getMinutes() - new Date(date).getMinutes()
+  );
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className={classes.tableHeading} align="center" colSpan={5}>
-              {city ? `${city.name}, ${city.country}` : ''}
+              {city ? `${city.name}, ${city.country} (cached ${displayCacheAge(city.cachedAt)} mins ago)` : ''}
             </TableCell>
           </TableRow>
           <TableRow>

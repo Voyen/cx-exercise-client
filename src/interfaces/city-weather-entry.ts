@@ -2,6 +2,7 @@ export default interface CityWeatherEntry {
   id: number;
   name: string;
   country: string;
+  cachedAt: number;
   details: CityWeatherEntryDetails[];
 }
 
