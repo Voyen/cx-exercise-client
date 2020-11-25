@@ -28,6 +28,7 @@ module.exports = {
     "import/prefer-default-export": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-floating-promises": 0,
     "jsx-a11y/accessible-emoji": 0,
     "no-param-reassign": 0,
     "no-nested-ternary": 0,
