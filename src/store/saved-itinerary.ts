@@ -7,6 +7,10 @@ const SavedItineraryStore: SavedItineraryModel = {
     state.entries.push(entry);
   }),
   removeEntry: action((state, entryId) => {
+    const url = `http://localhost:3000/saved/${entryId}`;
+    const opts = { method: 'DELETE' };
+    fetch(url, opts);
+
     const index = state.entries.findIndex((entry) => entry.id === entryId);
     state.entries.splice(index, 1);
   }),
