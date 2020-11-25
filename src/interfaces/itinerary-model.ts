@@ -5,4 +5,5 @@ export default interface ItineraryModel {
   entries: CityWeatherEntry[];
   addEntry: Action<ItineraryModel, CityWeatherEntry>;
   removeEntry: Action<ItineraryModel, number>;
+  clear: Action<ItineraryModel>;
 }

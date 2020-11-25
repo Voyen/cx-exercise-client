@@ -15,4 +15,9 @@ export default makeStyles(() => createStyles({
     bottom: '20px',
     right: '20px',
   },
+  saved: {
+    position: 'fixed',
+    bottom: '20px',
+    left: '20px',
+  },
 }));

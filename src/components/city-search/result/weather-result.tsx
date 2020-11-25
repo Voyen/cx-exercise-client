@@ -125,9 +125,7 @@ const WeatherResult: React.FC<IWeatherResult> = ({ city }): JSX.Element => {
     );
   };
 
-  const displayCacheAge = (date: number): number => (
-    new Date().getMinutes() - new Date(date).getMinutes()
-  );
+  const displayCacheAge = (date: number): string => (date ? ` (cached ${new Date().getMinutes() - new Date(date).getMinutes()} mins ago)` : '');
 
   return (
     <TableContainer component={Paper}>
@@ -135,7 +133,7 @@ const WeatherResult: React.FC<IWeatherResult> = ({ city }): JSX.Element => {
         <TableHead>
           <TableRow>
             <TableCell className={classes.tableHeading} align="center" colSpan={5}>
-              {city ? `${city.name}, ${city.country} (cached ${displayCacheAge(city.cachedAt)} mins ago)` : ''}
+              {city ? `${city.name}, ${city.country}${displayCacheAge(city.cachedAt)}` : ''}
             </TableCell>
           </TableRow>
           <TableRow>

@@ -1,7 +1,7 @@
 import { action } from 'easy-peasy';
-import ItineraryModel from '../interfaces/itinerary-model';
+import SavedItineraryModel from '../interfaces/saved-itinerary-model';
 
-const ItineraryStore: ItineraryModel = {
+const SavedItineraryStore: SavedItineraryModel = {
   entries: [],
   addEntry: action((state, entry) => {
     state.entries.push(entry);
@@ -10,9 +10,6 @@ const ItineraryStore: ItineraryModel = {
     const index = state.entries.findIndex((entry) => entry.id === entryId);
     state.entries.splice(index, 1);
   }),
-  clear: action((state) => {
-    state.entries = [];
-  }),
 };
 
-export default ItineraryStore;
+export default SavedItineraryStore;

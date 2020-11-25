@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStoreActions } from '../../hooks';
 import CityWeatherEntry from '../../interfaces/city-weather-entry';
+import loadWeatherData from '../../util/load-weather-data';
 import WeatherResult from './result/weather-result';
 import useStyles from './styles';
 
@@ -22,20 +23,17 @@ const CitySearch: React.FC = (): JSX.Element => {
   const addEntry = useStoreActions((state) => state.itinerary.addEntry);
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit, reset } = useForm<CityForm>();
-  const [result, setResult] = useState();
+  const [result, setResult] = useState<CityWeatherEntry>();
   const [fetching, setFetching] = useState(false);
 
   const onSubmit = (data: CityForm): void => {
     setFetching(true);
-    const url = `http://localhost:3000/search/${data.city}`;
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetch(url, { mode: 'cors' })
-      .then((d) => d.json())
-      .then((d) => {
-        setFetching(false);
-        setResult(d);
-      });
+    loadWeatherData(data.city).then((d) => {
+      setFetching(false);
+      setResult(d);
+    });
 
     reset();
   };
@@ -61,13 +59,14 @@ const CitySearch: React.FC = (): JSX.Element => {
           <Typography component="h1" variant="h5">
             Search for a city
           </Typography>
-          <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   inputRef={register}
                   variant="outlined"
                   fullWidth
+                  required
                   id="city"
                   label="City"
                   name="city"
@@ -96,7 +95,7 @@ const CitySearch: React.FC = (): JSX.Element => {
                     <WeatherResult city={result} />
                   </Grid>
                   <Grid item xs={6}>
-                    <Button fullWidth variant="contained" color="secondary" onClick={() => addToItinerary(result!)}>Add to itinerary</Button>
+                    <Button fullWidth variant="contained" color="secondary" onClick={() => addToItinerary(result)}>Add to itinerary</Button>
                   </Grid>
                   <Grid item xs={6}>
                     <Button fullWidth variant="contained" onClick={() => onDiscard()}>Discard</Button>
