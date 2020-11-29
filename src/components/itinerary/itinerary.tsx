@@ -32,6 +32,10 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit, reset } = useForm<SaveForm>();
 
+  const toggleSaving = (): void => {
+    setSaving(!saving);
+  };
+
   const onSubmit = (data: SaveForm): void => {
     const url = 'http://localhost:3000/saved';
     const itinerary = {
@@ -58,9 +62,37 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
     clearItinerary();
   };
 
-  const toggleSaving = (): void => {
-    setSaving(!saving);
-  };
+  const genButtonsRow = (): JSX.Element => (
+    <TableRow>
+      <TableCell>
+        <Button fullWidth variant="contained">Summary</Button>
+      </TableCell>
+      <TableCell>
+        <Button fullWidth variant="contained" onClick={() => onClear()}>Clear</Button>
+      </TableCell>
+      <TableCell>
+        <Button fullWidth variant="contained" onClick={() => toggleSaving()}>Save</Button>
+      </TableCell>
+    </TableRow>
+  );
+
+  const genSavePrompt = (): JSX.Element => (
+    <TableRow>
+      <TableCell colSpan={2}>
+        <TextField
+          inputRef={register}
+          variant="outlined"
+          fullWidth
+          id="name"
+          label="Name"
+          name="name"
+        />
+      </TableCell>
+      <TableCell>
+        <Button type="submit" fullWidth variant="contained" color="secondary">Save</Button>
+      </TableCell>
+    </TableRow>
+  );
 
   return (
     <>
@@ -72,9 +104,6 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
                 <TableCell align="center" colSpan={3}>
                   Current Itinerary
                 </TableCell>
-                {/* <TableCell>
-                  <Button className={classes.clearBtn} size="small" onClick={() => onClear()}>Clear</Button>
-                </TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -90,39 +119,7 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
                   </TableCell>
                 </TableRow>
               ))}
-              {
-                saving
-                  ? (
-                    <TableRow>
-                      <TableCell colSpan={2}>
-                        <TextField
-                          inputRef={register}
-                          variant="outlined"
-                          fullWidth
-                          id="name"
-                          label="Name"
-                          name="name"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Button type="submit" fullWidth variant="contained" color="secondary">Save</Button>
-                      </TableCell>
-                    </TableRow>
-                  )
-                  : (
-                    <TableRow>
-                      <TableCell>
-                        <Button fullWidth variant="contained">Summary</Button>
-                      </TableCell>
-                      <TableCell>
-                        <Button fullWidth variant="contained" onClick={() => onClear()}>Clear</Button>
-                      </TableCell>
-                      <TableCell>
-                        <Button fullWidth variant="contained" onClick={() => toggleSaving()}>Save</Button>
-                      </TableCell>
-                    </TableRow>
-                  )
-              }
+              {saving ? genSavePrompt() : genButtonsRow()}
             </TableBody>
           </Table>
         </TableContainer>
