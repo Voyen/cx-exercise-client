@@ -25,6 +25,7 @@ interface SaveForm {
 
 const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
   const classes = useStyles();
+  const clearItinerary = useStoreActions((state) => state.itinerary.clear);
   const removeEntry = useStoreActions((state) => state.itinerary.removeEntry);
   const addEntry = useStoreActions((state) => state.saved.addEntry);
   // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -51,6 +52,10 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
     reset();
   };
 
+  const onClear = (): void => {
+    clearItinerary();
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -58,8 +63,11 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell colSpan={2} align="center">
+                <TableCell align="center">
                   Current Itinerary
+                </TableCell>
+                <TableCell>
+                  <Button className={classes.clearBtn} size="small" onClick={() => onClear()}>Clear</Button>
                 </TableCell>
               </TableRow>
             </TableHead>
