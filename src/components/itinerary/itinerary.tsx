@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import ClearIcon from '@material-ui/icons/Clear';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStoreActions } from '../../hooks';
 import CityWeatherEntry from '../../interfaces/city-weather-entry';
@@ -28,6 +28,7 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
   const clearItinerary = useStoreActions((state) => state.itinerary.clear);
   const removeEntry = useStoreActions((state) => state.itinerary.removeEntry);
   const addEntry = useStoreActions((state) => state.saved.addEntry);
+  const [saving, setSaving] = useState(false);
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit, reset } = useForm<SaveForm>();
 
@@ -49,11 +50,16 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
       .then((response) => response.json())
       .then((response) => addEntry(response));
 
+    toggleSaving();
     reset();
   };
 
   const onClear = (): void => {
     clearItinerary();
+  };
+
+  const toggleSaving = (): void => {
+    setSaving(!saving);
   };
 
   return (
@@ -63,18 +69,18 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center">
+                <TableCell align="center" colSpan={3}>
                   Current Itinerary
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <Button className={classes.clearBtn} size="small" onClick={() => onClear()}>Clear</Button>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
               {entries.map((e) => (
                 <TableRow key={e.id}>
-                  <TableCell>
+                  <TableCell colSpan={2}>
                     {`${e.name}, ${e.country}`}
                   </TableCell>
                   <TableCell>
@@ -84,21 +90,39 @@ const Itinerary: React.FC<IItinerary> = ({ entries }): JSX.Element => {
                   </TableCell>
                 </TableRow>
               ))}
-              <TableRow>
-                <TableCell>
-                  <TextField
-                    inputRef={register}
-                    variant="outlined"
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    name="name"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button type="submit" fullWidth variant="contained" color="secondary">Save</Button>
-                </TableCell>
-              </TableRow>
+              {
+                saving
+                  ? (
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <TextField
+                          inputRef={register}
+                          variant="outlined"
+                          fullWidth
+                          id="name"
+                          label="Name"
+                          name="name"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Button type="submit" fullWidth variant="contained" color="secondary">Save</Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                  : (
+                    <TableRow>
+                      <TableCell>
+                        <Button fullWidth variant="contained">Summary</Button>
+                      </TableCell>
+                      <TableCell>
+                        <Button fullWidth variant="contained" onClick={() => onClear()}>Clear</Button>
+                      </TableCell>
+                      <TableCell>
+                        <Button fullWidth variant="contained" onClick={() => toggleSaving()}>Save</Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+              }
             </TableBody>
           </Table>
         </TableContainer>
